@@ -1,0 +1,87 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();
+        // int k = scanner.nextInt();
+        int[] arr = new int[n];
+        // int c=0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        Arrays.sort(arr);
+       
+            int q = scanner.nextInt();
+
+            for(int i=0; i<q; i++){
+                int l=scanner.nextInt();
+                int r=scanner.nextInt();
+                int largest=binaryLeft(arr, r);
+                int smallest=binaryRight(arr, l);
+                
+                if( smallest ==0 && largest==arr.length+1){
+                    System.out.print(0+" ");
+                }
+                else{
+                     System.out.print(largest-smallest+1 +" ");
+                }
+               
+            }
+
+        scanner.close();
+    }
+    
+    public static int binaryLeft(int []arr, int r){
+        int low=0;
+        int high=arr.length-1;
+        int ans=0;
+        while(low<=high){
+            int mid=(high+low)/2;
+            
+            if(arr[mid]<=r){
+                ans=mid;
+                low=mid+1;
+            }
+            
+            else{
+                high=mid-1;
+            }
+        }
+        
+        if(arr[ans]<=r){
+            return ans+1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    public static int binaryRight(int []arr, int l){
+        int low=0;
+        int high=arr.length-1;
+        int ans=0;
+        while(low<=high){
+            int mid=(high+low)/2;
+            
+            if(arr[mid]<l){
+                
+                low=mid+1;
+            }
+            
+            else{
+                ans=mid;
+                high=mid-1;
+            }
+        }
+        
+        if(arr[ans]>=l){
+            return ans+1;
+        }
+        else{
+            return arr.length+1;
+        }
+    }
+}
