@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br= new BufferedReader(new InputStreamReader( System.in));
+        String [] line= br.readLine().split(" ");
+        
+        long w=(long)Integer.parseInt(line[0]);
+        long h=(long)Integer.parseInt(line[1]);
+        long n=(long)Integer.parseInt(line[2]);
+        
+       long l = 0, r = 1;
+        while(!good(r, w, h,n )) r*=2;
+        while(l+1 < r)
+        {
+            long mid = (l+r)/2;
+            if(good(mid, w, h, n) == false) {
+                l = mid;
+            } else {
+                r = mid;
+            }
+        }
+        System.out.println(r);
+    }
+    
+    public static boolean good(long x, long w, long h, long n){
+         return (x / w) * (x / h) >= n;
+    }
+}
